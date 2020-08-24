@@ -1,6 +1,17 @@
 package queue;
 
+import java.util.Scanner;
+
 public class ArrayQueueDome {
+    public static void main(String[] args) {
+//     ArrayQueue  arrayQueue =   new ArrayQueue(3);
+//     char key = ' ';
+//     Scanner scanner = new Scanner(System.in);
+//     boolean loop = true;
+//     while(loop) {
+//         System.out.println("s(show):显示队列");
+//     }
+    }
 }
 
 
