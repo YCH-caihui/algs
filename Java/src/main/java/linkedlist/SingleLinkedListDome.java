@@ -9,10 +9,17 @@ public class SingleLinkedListDome {
         linkedList.addByOrder(new HeroNode(100, "", ""));
         linkedList.addByOrder(new HeroNode(11, "", ""));
 
-        linkedList.list();
-        SingleLinkedList.reversetList(linkedList.getHead());
-        System.out.println("反转:");
-        linkedList.list();
+      //  linkedList.list();
+
+        SingleLinkedList linkedList1 = new SingleLinkedList();
+        linkedList1.addByOrder(new HeroNode(110, "", ""));
+        linkedList1.addByOrder(new HeroNode(111, "", ""));
+
+        HeroNode node = SingleLinkedList.merger(linkedList1.getHead(), linkedList.getHead());
+
+        SingleLinkedList linkedList2 = new SingleLinkedList();
+        linkedList2.setHead(node);
+        linkedList2.list();
 
     }
 }
@@ -42,6 +49,11 @@ class SingleLinkedList {
 
         //当退出while循环时，temp就指向了链表的最后
         temp.next = heroNode;
+    }
+
+
+    public void setHead(HeroNode heroNode) {
+        head = heroNode;
     }
 
     public HeroNode getHead() {
@@ -204,6 +216,69 @@ class SingleLinkedList {
         }
         //将head.next指向reverseHead.next,实现单链表反转
          head.next = reserseHead.next;
+    }
+
+
+    public static HeroNode merger(HeroNode node1, HeroNode node2) {
+        HeroNode headNode = new HeroNode(0, "", "");
+        node1 = node1.next;
+        while (node1 != null) {
+            HeroNode temp = headNode;
+            boolean flag = false;
+            while(true) {
+                if(temp.next == null) {
+                    break;
+                } else if(temp.next.no < node1.no) {
+                    break;
+                } else if(temp.next.no == node1.no) {
+                    flag = true;
+                    break;
+                }
+                temp = temp.next;
+            }
+
+            if(!flag) {
+                HeroNode hs = new HeroNode(node1.no, node1.name, node2.nickname);
+                hs.next = temp.next;
+                temp.next = hs;
+            } else {
+                System.out.println("重复元素1");
+            }
+
+
+            node1 = node1.next;
+        }
+
+
+        node2 = node2.next;;
+        while (node2 != null) {
+            HeroNode temp = headNode;
+            boolean flag = false;
+            while (true) {
+                if(temp.next == null) {
+                    break;
+                } else if(temp.next.no < node2.no) {
+                    break;
+                } else if(temp.next.no == node2.no) {
+                    flag = true;
+                    break;
+                }
+
+                temp = temp.next;
+            }
+
+            if(!flag) {
+                HeroNode cNode = new HeroNode(node2.no, node2.name, node2.nickname);
+                cNode.next = temp.next;
+                temp.next = cNode;
+            } else {
+                System.out.println("重复元素2");
+            }
+
+            node2 = node2.next;
+        }
+
+        return headNode;
     }
 }
 
