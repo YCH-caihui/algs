@@ -1,5 +1,7 @@
 package sparse;
 
+import java.io.*;
+
 public class main {
 
     public static void main(String[] argc) {
@@ -7,8 +9,9 @@ public class main {
         int[][] array = new int[11][11];
         array[2][3] = 100;
         array[10][3] = 666;
+        array[10][10] = 999;
 
-        for(int pa[] : array) {
+        for(int[] pa : array) {
             for(int i : pa) {
                 System.out.printf(" %d  ", i);
             }
@@ -44,7 +47,7 @@ public class main {
         }
 
 
-        for(int pa[] : sparseArray) {
+        for(int[] pa : sparseArray) {
             for(int value : pa) {
                 System.out.printf("  %d  ", value);
             }
@@ -52,7 +55,62 @@ public class main {
             System.out.println("  ");
         }
 
+        System.out.println("===========================================================");
 
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("a.txt"));
+            bufferedWriter.write((sum +1) + "\n" );
+            bufferedWriter.write( 3  +"\n");
+            for(int i = 0; i < sparseArray.length; i++) {
+                for(int k = 0; k < sparseArray[i].length; k++) {
+                    bufferedWriter.write(sparseArray[i][k]+"\n");
+                }
+            }
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("a.txt"));
+            String rowStr =  bufferedReader.readLine();
+            String column = bufferedReader.readLine();
+            int[][] sparse = new int[Integer.parseInt(rowStr)][Integer.parseInt(column)];
+            for(int i = 0; i < sparse.length; i++) {
+                for(int k = 0; k < sparse[i].length; k++) {
+                   sparse[i][k] = Integer.parseInt(bufferedReader.readLine());
+                }
+            }
+            bufferedReader.close();
+
+            for(int[] temp : sparse) {
+                for(int value : temp) {
+                    System.out.printf("  %d  ", value);
+                }
+                System.out.println("  ");
+            }
+
+            System.out.println("=======================================");
+
+            int[][] reArray = new int[sparse[0][0]][sparse[0][1]];
+
+            int count = sparse[0][2] + 1;
+            for(int i = 1; i < count; i++) {
+                reArray[sparse[i][0]][sparse[i][1]] = sparse[i][2];
+            }
+
+            for(int[] temp : reArray) {
+                for(int value : temp) {
+                    System.out.printf(" %d ", value);
+                }
+                System.out.println("  ");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
